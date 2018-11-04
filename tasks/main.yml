@@ -1,0 +1,33 @@
+---
+# tasks file for java
+
+# - name: upload maven .tar.gz to remote
+#   copy:
+#     src: "{{ item }}"
+#     dest: "{{ soft_temp_home }}/"
+#   with_fileglob:
+#     - ./files/maven_3.5.4.tar.gz
+
+- name: create maven directory
+  file:
+    path: "{{ maven_home }}"
+    state: "directory"
+
+- name: unarchive maven .tar.gz
+  unarchive:
+    copy: no
+    src: "{{ maven_tgz_home }}.tar.gz"
+    dest: "{{ maven_home }}"
+    owner: "work"
+    group: "work"
+    extra_opts: [--strip-components=1]
+
+- name: install mvn link
+  file:
+    state: link
+    force: yes
+    src: '{{ maven_home }}/bin/mvn'
+    dest: '/usr/local/bin/mvn'
+    owner: work
+    group: work
+    mode: 'u=rwx,go=rx'

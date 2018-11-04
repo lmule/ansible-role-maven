@@ -1,0 +1,8 @@
+---
+# defaults file for java
+
+soft_install_home: "/home/work/soft/"
+soft_temp_home: "/home/work/temp/"
+maven_version: "maven_3.5.4"
+maven_tgz_home: "{{ soft_temp_home }}{{ maven_version }}"
+maven_home: "{{ soft_install_home }}{{ maven_version }}"
